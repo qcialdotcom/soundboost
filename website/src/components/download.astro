@@ -1,0 +1,51 @@
+---
+// src/components/download.astro
+import { EXTENSION_DOWNLOADS } from "@/configs/downloads";
+import { SITE_INFO } from "@/configs/site";
+import { Puzzle } from "@lucide/astro";
+import DownloadCard from "./download-card.astro";
+---
+
+<section
+  id="download"
+  aria-labelledby="download-title"
+  class="relative scroll-mt-16 overflow-hidden border-t border-outline-variant/30 bg-surface py-16 sm:py-24"
+>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 top-0 z-0 h-96 bg-linear-to-b from-primary-container/20 to-transparent"
+  >
+  </div>
+
+  <div class="relative z-10 mx-auto w-full max-w-300 px-4 sm:px-6">
+    <div class="mx-auto mb-12 max-w-2xl text-center sm:mb-14">
+      <p
+        class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary"
+      >
+        <span aria-hidden="true" class="size-1.5 rounded-full bg-primary"></span>
+        Download
+      </p>
+      <h2 id="download-title" class="mt-4 text-balance text-3xl font-extrabold tracking-tight text-on-surface sm:text-4xl">
+        Get {SITE_INFO.name} for <span class="text-primary">your browser</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-pretty text-base text-on-surface-variant sm:text-lg">
+        Free to use, no account needed. Pick your browser below.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-12">
+      <div>
+        <div class="mb-6 flex items-center gap-3">
+          <span class="inline-flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <Puzzle class="size-4" />
+          </span>
+          <h3 class="text-lg font-bold text-on-surface">Browser extension</h3>
+          <span aria-hidden="true" class="h-px flex-1 bg-outline-variant/60"></span>
+        </div>
+        <ul class="grid gap-4 md:grid-cols-2">
+          {EXTENSION_DOWNLOADS.map((target) => <DownloadCard target={target} />)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

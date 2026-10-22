@@ -1,0 +1,65 @@
+---
+// src/components/features.astro
+import { FEATURES } from "@/configs/content";
+import { Globe, Moon, Power, Save, ShieldCheck, SlidersHorizontal, Volume2, Zap } from "@lucide/astro";
+
+const ICONS = {
+  volume: Volume2,
+  globe: Globe,
+  sliders: SlidersHorizontal,
+  power: Power,
+  save: Save,
+  shield: ShieldCheck,
+  moon: Moon,
+  zap: Zap,
+} as const;
+---
+
+<section
+  id="features"
+  aria-labelledby="features-title"
+  class="relative scroll-mt-16 overflow-hidden border-t border-outline-variant/30 bg-surface-container-low py-16 sm:py-24"
+>
+  <div aria-hidden="true" class="pointer-events-none absolute -left-24 -top-24 z-0 size-96 rounded-full bg-primary/10 blur-3xl">
+  </div>
+
+  <div class="relative z-10 mx-auto w-full max-w-300 px-4 sm:px-6">
+    <div class="mx-auto mb-12 max-w-2xl text-center sm:mb-14">
+      <p
+        class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary"
+      >
+        <span aria-hidden="true" class="size-1.5 rounded-full bg-primary"></span>
+        Features
+      </p>
+      <h2 id="features-title" class="mt-4 text-balance text-3xl font-extrabold tracking-tight text-on-surface sm:text-4xl">
+        Everything you need to <span class="text-primary">boost your sound</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-pretty text-base text-on-surface-variant sm:text-lg">
+        A simple popup that makes quiet audio loud and clear in seconds.
+      </p>
+    </div>
+
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        FEATURES.map((feature) => {
+          const Icon = ICONS[feature.icon as keyof typeof ICONS];
+          return (
+            <li class="group relative min-w-0 cursor-default overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-[0_2px_8px_var(--color-shadow-soft)] transition-all duration-200 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_12px_28px_var(--color-shadow-primary)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-6">
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute inset-0 bg-linear-to-br from-primary/10 via-transparent to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100 motion-reduce:transition-none"
+              />
+              <div class="relative">
+                <span class="inline-flex size-11 items-center justify-center rounded-xl bg-primary-fixed text-on-primary-fixed transition-colors duration-200 group-hover:bg-primary group-hover:text-on-primary motion-reduce:transition-none">
+                  {Icon && <Icon class="size-5" />}
+                </span>
+                <h3 class="mt-4 text-lg font-semibold text-on-surface">{feature.title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-on-surface-variant">{feature.text}</p>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>

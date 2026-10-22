@@ -1,0 +1,66 @@
+---
+// src/components/privacy.astro
+import { PRIVACY_BADGES, PRIVACY_POINTS } from "@/configs/content";
+import { SITE_INFO } from "@/configs/site";
+import { Check, Database, ShieldCheck, WifiOff } from "@lucide/astro";
+
+const ICONS = { "wifi-off": WifiOff, database: Database, shield: ShieldCheck } as const;
+---
+
+<section
+  id="privacy"
+  aria-labelledby="privacy-title"
+  class="relative scroll-mt-16 overflow-hidden border-t border-outline-variant/30 bg-surface-container-low py-16 sm:py-24"
+>
+  <div aria-hidden="true" class="pointer-events-none absolute -right-24 -top-24 z-0 size-96 rounded-full bg-primary/10 blur-3xl">
+  </div>
+
+  <div class="relative z-10 mx-auto grid w-full max-w-300 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16">
+    <div class="min-w-0 text-center lg:text-left">
+      <p
+        class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary"
+      >
+        <ShieldCheck class="size-3.5" />
+        Privacy
+      </p>
+      <h2 id="privacy-title" class="mt-4 text-balance text-3xl font-extrabold tracking-tight text-on-surface sm:text-4xl">
+        Your audio stays <span class="text-primary">yours</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-pretty text-base text-on-surface-variant sm:text-lg lg:mx-0">
+        {SITE_INFO.name} amplifies sound right inside your browser. Nothing is recorded, uploaded or tracked.
+      </p>
+
+      <ul class="mt-8 flex flex-wrap justify-center gap-2 lg:justify-start">
+        {
+          PRIVACY_BADGES.map((badge) => (
+            <li class="inline-flex items-center gap-1.5 rounded-full border border-outline-variant bg-surface-container-lowest px-3 py-1.5 text-sm font-medium text-on-surface">
+              <Check class="size-4 text-tertiary" />
+              {badge}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <ul class="flex min-w-0 flex-col gap-4">
+      {
+        PRIVACY_POINTS.map((point) => {
+          const Icon = ICONS[point.icon as keyof typeof ICONS];
+          return (
+            <li class="group min-w-0 cursor-default rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-[0_2px_8px_var(--color-shadow-soft)] transition-all duration-200 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_12px_28px_var(--color-shadow-primary)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-6">
+              <div class="flex items-start gap-4">
+                <span class="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-fixed text-on-primary-fixed transition-colors duration-200 group-hover:bg-primary group-hover:text-on-primary motion-reduce:transition-none">
+                  {Icon && <Icon class="size-5" />}
+                </span>
+                <div class="min-w-0">
+                  <h3 class="text-lg font-semibold text-on-surface">{point.title}</h3>
+                  <p class="mt-1 text-sm leading-relaxed text-on-surface-variant sm:text-base">{point.text}</p>
+                </div>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>

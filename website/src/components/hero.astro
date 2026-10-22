@@ -1,0 +1,113 @@
+---
+// src/components/hero.astro
+import logo from "@/assets/logo.png";
+import { DOWNLOAD_ROUTE, FEATURES_ROUTE } from "@/configs/routes";
+import { SITE_INFO } from "@/configs/site";
+import { ArrowRight, Download, Moon, Shield } from "@lucide/astro";
+import { Image } from "astro:assets";
+---
+
+<section aria-labelledby="hero-title" class="relative flex items-center overflow-hidden lg:min-h-[calc(100dvh-4rem)]" id="hero">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 top-0 z-0 h-128 bg-linear-to-b from-primary-container/20 to-transparent"
+  >
+  </div>
+  <div aria-hidden="true" class="pointer-events-none absolute -left-24 top-1/2 z-0 size-96 rounded-full bg-secondary/10 blur-3xl">
+  </div>
+
+  <div
+    class="relative z-10 mx-auto grid w-full max-w-300 items-center gap-12 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:py-20"
+  >
+    <div class="min-w-0 text-center lg:text-left">
+      <p
+        class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary"
+      >
+        <Shield class="size-3.5" />
+        Free · Private · No login
+      </p>
+
+      <h1
+        id="hero-title"
+        class="mt-5 text-balance text-3xl font-extrabold leading-tight tracking-tight text-on-surface xxs:text-4xl sm:text-5xl lg:text-6xl"
+      >
+        Boost any tab&apos;s volume up to <span class="text-primary">600%</span>
+      </h1>
+
+      <p class="mx-auto mt-5 max-w-xl text-pretty text-base text-on-surface-variant sm:text-lg lg:mx-0">
+        {SITE_INFO.name} is a free Chrome and firefox extension that makes quiet videos, calls and music loud and clear, beyond your system volume limit. One click, one slider, no account.
+      </p>
+
+      <div class="mt-8 flex flex-col items-stretch gap-3 xs:flex-row xs:justify-center lg:justify-start">
+        <a
+          href={DOWNLOAD_ROUTE.path}
+          class="group/cta inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 font-semibold text-on-primary no-underline shadow-[0_8px_24px_var(--color-shadow-primary)] transition-all duration-200 hover:opacity-90 hover:shadow-[0_12px_32px_var(--color-shadow-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100"
+        >
+          <Download class="size-5" />
+          Add to Browser
+        </a>
+        <a
+          href={FEATURES_ROUTE.path}
+          class="group/cta inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full border border-outline px-6 font-semibold text-on-surface no-underline transition-all duration-200 hover:border-primary/40 hover:bg-surface-container focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100"
+        >
+          See features
+          <ArrowRight
+            class="size-4 transition-transform duration-200 group-hover/cta:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover/cta:translate-x-0"
+          />
+        </a>
+      </div>
+
+      <p class="mt-4 text-sm text-on-surface-variant">Works on Chrome, Firefox, Edge &amp; Brave</p>
+    </div>
+
+    <div class="min-w-0" aria-hidden="true">
+      <div class="relative mx-auto w-full max-w-sm">
+        <div class="absolute -inset-4 rounded-3xl bg-primary/10 blur-2xl"></div>
+
+        <div
+          class="relative overflow-hidden rounded-2xl border border-outline-variant bg-surface shadow-[0_24px_60px_var(--color-shadow-primary)]"
+        >
+          <div class="flex items-center justify-between border-b border-outline-variant px-4 py-3">
+            <div class="flex items-center gap-2">
+              <Image src={logo} alt="" width={28} height={28} densities={[1, 2]} class="size-7 rounded-lg" />
+              <span class="text-sm font-bold text-on-surface">{SITE_INFO.name}</span>
+            </div>
+            <Moon class="size-5 text-on-surface-variant" />
+          </div>
+
+          <div class="flex flex-col gap-4 px-5 py-4">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-on-surface">Audio boost</span>
+              <div class="flex items-center gap-3">
+                <span class="text-sm font-bold text-tertiary">ON</span>
+                <span class="relative h-7 w-12 rounded-full bg-primary-container">
+                  <span class="absolute left-0.5 top-0.5 size-6 translate-x-5 rounded-full bg-white"></span>
+                </span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <span class="font-semibold text-on-surface">Volume level</span>
+                <span class="rounded-full bg-surface-container px-3 py-0.5 text-sm font-bold text-primary">200%</span>
+              </div>
+              <div class="relative h-2 w-full rounded-full bg-surface-container-highest">
+                <span class="absolute inset-y-0 left-0 w-1/5 rounded-full bg-primary-container"></span>
+                <span class="absolute left-1/5 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-container ring-4 ring-surface"></span>
+              </div>
+              <div class="flex justify-between text-sm text-on-surface-variant">
+                <span>100%</span>
+                <span>600%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-outline-variant px-4 py-2 text-center text-xs text-on-surface-variant">
+            Copyright &copy; <span class="font-bold">{SITE_INFO.name}</span> by{" "}
+            <span class="font-extrabold text-primary">{SITE_INFO.parent.name}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
