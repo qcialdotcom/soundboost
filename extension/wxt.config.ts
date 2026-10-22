@@ -1,10 +1,25 @@
 // wxt.config.ts
 
-import { defineConfig } from "wxt";
 import tailwindcss from "@tailwindcss/vite";
-import { resolve } from "node:path";
-import { mkdirSync, readdirSync, existsSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
+import { resolve } from "node:path";
+import { loadEnv } from "vite";
+import { defineConfig } from "wxt";
+
+// Stable Chrome extension ID.
+const CHROME_EXTENSION_KEY = loadEnv(
+  process.env.NODE_ENV ?? "development",
+  process.cwd(),
+  "WXT_CHROME_EXTENSION_KEY",
+).WXT_CHROME_EXTENSION_KEY;
+
+// Stable Firefox extension ID.
+const FIREFOX_EXTENSION_ID = loadEnv(
+  process.env.NODE_ENV ?? "development",
+  process.cwd(),
+  "WXT_FIREFOX_EXTENSION_ID",
+).WXT_FIREFOX_EXTENSION_ID;
 
 const profile = resolve(".wxt/chrome-profile");
 mkdirSync(profile, { recursive: true });
@@ -17,12 +32,22 @@ const chrome = ver ? resolve(root, ver, "chrome-linux64/chrome") : undefined;
 
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
-  manifest: {
+  manifest: ({ browser }) => ({
     name: "Volume Boost",
     description:
       "Boost quiet audio and video in any tab up to 600% beyond your system volume limit.",
     permissions: ["tabCapture", "offscreen", "storage"],
-  },
+    ...(browser === "chrome" && {
+      key: CHROME_EXTENSION_KEY,
+    }),
+    ...(browser === "firefox" && {
+      applications: {
+        gecko: {
+          id: FIREFOX_EXTENSION_ID,
+        },
+      },
+    }),
+  }),
   webExt: {
     binaries: chrome ? { chrome } : undefined,
     chromiumProfile: profile,
