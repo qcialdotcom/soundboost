@@ -41,9 +41,12 @@ export default defineConfig({
       key: CHROME_EXTENSION_KEY,
     }),
     ...(browser === "firefox" && {
-      applications: {
+      browser_specific_settings: {
         gecko: {
           id: FIREFOX_EXTENSION_ID,
+          data_collection_permissions: {
+            required: ["none"],
+          },
         },
       },
     }),
