@@ -33,7 +33,7 @@ const chrome = ver ? resolve(root, ver, "chrome-linux64/chrome") : undefined;
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
   manifest: ({ browser }) => ({
-    name: "Volume Boost",
+    name: "Sound Boost",
     description:
       "Boost quiet audio and video in any tab up to 600% beyond your system volume limit.",
     permissions: ["tabCapture", "offscreen", "storage"],
